@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2fa1b2c1-61c6-4844-b72f-31a8ceb9c61a",
+		"_postman_id": "8146289f-4d8c-4f12-a602-f2e7a88dc46a",
 		"name": "TWG",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,15 +12,42 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"/*\r",
 							"pm.test(\"Verify board\",function(){\r",
 							"    var jsonData=pm.response.json();\r",
-							"    pm.expect(jsonData.x[0].name).to.eql(\"Board2\");\r",
+							"    pm.expect(jsonData[0].name).to.eql(\"Board2\");\r",
 							"});\r",
+							"*/\r",
 							"\r",
 							"pm.test(\"Verify board\",function(){\r",
 							"    var jsonData=pm.response.json();\r",
-							"    pm.expect(jsonData.x[0].idOrganization)\r",
-							"});"
+							"    pm.expect(jsonData[0].idOrganization)\r",
+							"});\r",
+							"\r",
+							"\r",
+							"function _isContains(json, keyname, value) {\r",
+							"    return Object.keys(json).some(key => {\r",
+							"        return typeof json[key] === 'object' && json[key] !== null ? \r",
+							"        _isContains(json[key], keyname, value) : key === keyname && json[key] === value;\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"pm.test(\"The response contains a valid id in the response\", function () {\r",
+							"    var jsonData=pm.response.json();\r",
+							"    pm.expect(_isContains(jsonData, \"name\" ,\"Board2\")).to.be.true;\r",
+							"});\r",
+							"\r",
+							"let board_ids = []\r",
+							"_.each(pm.response.json(), (el) => board_ids.push(el.id))\r",
+							"\r",
+							"pm.globals.set(\"board_ids\", JSON.stringify(board_ids));\r",
+							"\r",
+							"/*\r",
+							"let site = JSON.parse(pm.globals.get('board_ids'))\r",
+							"\r",
+							"console.log(site[0])\r",
+							"console.log(site[1])\r",
+							"*/"
 						],
 						"type": "text/javascript"
 					}
@@ -72,7 +99,7 @@
 							"\r",
 							"pm.test(\"Verify board\",function(){\r",
 							"    var JsonData=pm.response.json();\r",
-							"    pm.expect(JsonData[0].idOrganization.to.eql(\"602ba731501b6a7805e30090\"))\r",
+							"    pm.expect(JsonData[0].idOrganization).to.eql(\"602ba731501b6a7805e30090\");\r",
 							"});"
 						],
 						"type": "text/javascript"
