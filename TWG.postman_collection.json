@@ -17,12 +17,13 @@
 							"    var jsonData=pm.response.json();\r",
 							"    pm.expect(jsonData[0].name).to.eql(\"Board2\");\r",
 							"});\r",
-							"*/\r",
+							"\r",
 							"\r",
 							"pm.test(\"Verify board\",function(){\r",
 							"    var jsonData=pm.response.json();\r",
 							"    pm.expect(jsonData[0].idOrganization)\r",
 							"});\r",
+							"*/\r",
 							"\r",
 							"\r",
 							"function _isContains(json, keyname, value) {\r",
@@ -35,6 +36,11 @@
 							"pm.test(\"The response contains a valid id in the response\", function () {\r",
 							"    var jsonData=pm.response.json();\r",
 							"    pm.expect(_isContains(jsonData, \"name\" ,\"Board2\")).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response contains a invalid id in the response\", function () {\r",
+							"    var jsonData=pm.response.json();\r",
+							"    pm.expect(_isContains(jsonData, \"name\" ,\"Board\")).to.be.true;\r",
 							"});\r",
 							"\r",
 							"let board_ids = []\r",
@@ -82,58 +88,6 @@
 					]
 				},
 				"description": "bOARD cHECK"
-			},
-			"response": []
-		},
-		{
-			"name": "GET Board id",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Verify board\",function(){\r",
-							"    var JsonData=pm.response.json();\r",
-							"    pm.expect(JsonData[0].name).to.eql(\"Board2\");\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Verify board\",function(){\r",
-							"    var JsonData=pm.response.json();\r",
-							"    pm.expect(JsonData[0].idOrganization).to.eql(\"602ba731501b6a7805e30090\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://api.trello.com/1/members/me/boards?key=2b5803436c0a769bf726ff1d74265eed&token=9bacea137b9c6793d7148aa8359f2fcf35a7f85cbaa2ae211df046fa4ba08a5d",
-					"protocol": "https",
-					"host": [
-						"api",
-						"trello",
-						"com"
-					],
-					"path": [
-						"1",
-						"members",
-						"me",
-						"boards"
-					],
-					"query": [
-						{
-							"key": "key",
-							"value": "2b5803436c0a769bf726ff1d74265eed"
-						},
-						{
-							"key": "token",
-							"value": "9bacea137b9c6793d7148aa8359f2fcf35a7f85cbaa2ae211df046fa4ba08a5d"
-						}
-					]
-				}
 			},
 			"response": []
 		}
